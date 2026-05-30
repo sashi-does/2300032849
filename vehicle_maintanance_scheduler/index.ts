@@ -1,4 +1,8 @@
 import axios from 'axios';
+import {Log} from "../logging_middleware/log";
+// import type { Level, Package, Stack } from '../logging_middleware/types';
+import { Level, Package, Stack } from '../logging_middleware/types';
+
 
 
 const token_url = 'http://4.224.186.213/evaluation-service/auth';
@@ -128,4 +132,17 @@ export async function getTasks(
 
 
 
-getTasks(5, 8);
+await getTasks(5, 8);
+await Log(Stack.backend, Level.info, Package.service, "Vehilce Scheduler with time = 5, score = 8")
+const data = await Log(
+        Stack.backend,
+        Level.debug,
+        Package.controller,
+        'testing log. sorry for inconvenience'
+    );
+console.log("Log entered\n")
+console.log(data);
+// stack: Stack,
+//     level: Level,
+//     pack: Package,
+//     message: string

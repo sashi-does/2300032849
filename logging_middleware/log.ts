@@ -1,8 +1,8 @@
 import axios from 'axios';
 import type { Level, Package, Stack, LogResponse } from './types';
 
-const url = 'http://4.224.186.213/evaluation-service/logs';
-const token_url = 'http://4.224.186.213/evaluation-service/auth';
+const URL = 'http://4.224.186.213/evaluation-service/logs';
+// const TOKEN_URL = 'http://4.224.186.213/evaluation-service/auth';
 
 let cachedToken: string | null = null;
 
@@ -16,7 +16,7 @@ async function getNewToken(): Promise<string> {
         clientSecret: "uvcCxNrxTezTBhhe"
     };
 
-    const response = await axios.post<{ access_token: string }>(token_url, credentials);
+    const response = await axios.post<{ access_token: string }>(URL, credentials);
     const token = response.data.access_token;
     if (!token) {
         throw new Error('Failed to retrieve access token from response');
@@ -45,7 +45,7 @@ export async function Log(
 
         try {
             const response = await axios.post<LogResponse>(
-                url,
+                URL,
                 data,
                 {
                     headers: {
@@ -59,7 +59,7 @@ export async function Log(
             if (axios.isAxiosError(error) && error.response?.status === 401) {
                 await getNewToken();
                 const retryResponse = await axios.post<LogResponse>(
-                    url,
+                    URL,
                     data,
                     {
                         headers: {
