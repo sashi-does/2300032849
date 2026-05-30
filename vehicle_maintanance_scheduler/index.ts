@@ -46,12 +46,31 @@ export async function getTasks(
             });
 
             // sorted lists 
-            console.log(response.data);
+            console.log("######")
+            console.log(response.data)
+            console.log("######")
 
-            let lists = response.data;
-            Array.prototype.sort(lists);
+            let data = response.data;
 
-            return lists
+            let lists = data.vehicles;
+
+            // Array.prototype.sort(lists, (a, b) => {
+            //     if (a.impact / a.duration > b.impact / b.duration) return -1;
+            //     if (a.impact / a.duration < b.impact / b.duration) return 1;
+            //     return 0;
+            // });
+
+            let final_list = [];
+            // let curr_time = 0;
+            for (i = 0; i < lists.length; i++) {
+                if (lists[i].Duration <= time && lists[i].Impact >= score) {
+                    final_list.push(lists[i]);
+                    // curr_time += lists[i].Duration;
+                }
+            }
+            console.log("_____")
+            console.log(final_list.vehicles)
+            console.log("_____")
 
         } catch (error) {
             if (axios.isAxiosError(error) && error.response?.status === 401) {
