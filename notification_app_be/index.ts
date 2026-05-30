@@ -1,4 +1,7 @@
 import axios from "axios";
+import {Log} from "../logging_middleware/log"
+import { Level, Package, Stack } from '../logging_middleware/types';
+
 
 const API_URL = "http://4.224.186.213/evaluation-service/notifications";
 const TOKEN_URL = "http://4.224.186.213/evaluation-service/auth";
@@ -60,7 +63,7 @@ async function fetchNotifications() {
     },
   });
 
-  return Array.isArray(resp.data?.notifications) ? resp.data.notifications : [];
+  return resp.data.notifications;
 }
 
 
@@ -74,4 +77,7 @@ for( let i = 0; i < inbox.length; i++) {
 }
 
 
+const data = await Log(Stack.backend, Level.info, Package.handler, "testing from the Notification Logs");
+
+console.log(data);
 
