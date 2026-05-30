@@ -1,0 +1,11 @@
+{
+  "name": "vehicle_maintanance_scheduler",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
